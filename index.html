@@ -58,23 +58,33 @@ async function loadData(){
 
 // 查询函数
 function searchStudent(){
-    const input = document.getElementById('test_id').value.trim();
 
-    if(!input){
-        document.getElementById('result').innerText='Please enter your examination number.';
+    const input =
+        document.getElementById('test_id').value.trim();
+
+    const birthday =
+        document.getElementById('birthday').value.trim();
+
+    if(!input || !birthday){
+        document.getElementById('result').innerText =
+            'Please enter both ID and birthday.';
         return;
     }
 
-    // 同时支持 id 或 studentid
-    const student = studentMap[input] || studentIdMap[input];
+    const student =
+        studentMap[input] || studentIdMap[input];
 
-    if(student){
+    if(student && student.birthday === birthday){
+
         document.getElementById('result').innerText =
 `Application Number：${student.id}
 Student ID：${student.studentid}
-Orientation room：${student.orientation_room}`;
+Orientation Room：${student.orientation_room}`;
+
     }else{
-        document.getElementById('result').innerText=' No results found. ';
+
+        document.getElementById('result').innerText =
+            'Incorrect ID or birthday.';
     }
 }
 
